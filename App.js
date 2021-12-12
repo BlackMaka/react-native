@@ -7,49 +7,43 @@
 
 import React from 'react';
 import {
+  Platform,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+import AppTodo from './components/AppTodo';
+import DateHead from './components/DateHead';
+import Empty from './components/Empty';
 const App = () => {
+  const today = new Date();
+  console.log(today);
   return (
-    <SafeAreaView>
-      <View>
-        <Text>Hello React!</Text>
-      </View>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView edges={['bottom']} style={styles.block}>
+        <KeyboardAvoidingView
+          behavior={Platform.select({ios: 'padding'})}
+          style={styles.avoid}>
+          <DateHead date={today} />
+          <Empty />
+          <AppTodo />
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  block: {
+    backgroundColor: 'white',
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  avoid: {
+    flex: 1,
   },
 });
 
