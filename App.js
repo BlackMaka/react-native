@@ -5,8 +5,9 @@
  * @format
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -23,13 +24,18 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Box from './components/Box';
 
 const App = () => {
+  const [visible, setVisible] = useState(true);
+  const onPress = () => {
+    setVisible(!visible);
+  };
+  const name = 'suhan';
   return (
     <SafeAreaView>
-      <View>
-        <Text>Hello React!</Text>
-      </View>
+      <Button title="토글" onPress={onPress} />
+      {visible && <Box rounded size="small" color="dodgerblue" />}
     </SafeAreaView>
   );
 };
