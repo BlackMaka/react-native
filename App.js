@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -24,32 +24,22 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import Counter from './components/Counter';
+
 const App = () => {
+  const [count, setCount] = useState(0);
+  const onIncrease = () => setCount(count + 1);
+  const onDecrease = () => setCount(count - 1);
   return (
-    <SafeAreaView>
-      <View>
-        <Text>Hello React!</Text>
-      </View>
+    <SafeAreaView style={styles.full}>
+      <Counter count={count} onIncrease={onIncrease} onDecrease={onDecrease} />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  full: {
+    flex: 1,
   },
 });
 
