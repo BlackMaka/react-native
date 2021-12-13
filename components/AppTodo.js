@@ -10,10 +10,11 @@ import {
   View,
 } from 'react-native';
 
-export default function AppTodo() {
+export default function AppTodo({onInsert}) {
   const [text, setText] = useState('');
 
   const onPress = () => {
+    onInsert(text);
     setText('');
     Keyboard.dismiss();
   };
