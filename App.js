@@ -5,65 +5,25 @@
  * @format
  */
 import React from 'react';
+
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {NavigationContainer} from '@react-navigation/native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {View, Text, Button, TouchableOpacity} from 'react-native';
-
-function HomeScreen({navigation}) {
-  return (
-    <View>
-      <Text>Home</Text>
-      <Button title="Drawer 열기" onPress={() => navigation.openDrawer()} />
-      <Button
-        title="Setting 열기"
-        onPress={() => navigation.navigate('Setting')}
-      />
-    </View>
-  );
-}
-
-function SettingScreen({navigation}) {
-  return (
-    <View>
-      <Text>Setting</Text>
-      <Button title="뒤로가기" onPress={() => navigation.goBack()} />
-    </View>
-  );
-}
-
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import MainScreen from './screens/MainScreen';
+import DetailScreen from './screens/DetailScreen';
 const App = () => {
-  const {Navigator, Screen} = createDrawerNavigator();
+  const {Navigator, Screen} = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Navigator
-        initialRouteName="Home"
-        drawerPosition="left"
-        backBehavior="history"
-        screenOptions={{
-          drawerActiveBackgroundColor: '#fb8c00',
-          drawerActiveTintColor: 'white',
-        }}
-        drawerContent={({navigation}) => (
-          <View>
-            <Text>A custom Drawer</Text>
-            <Button
-              title="Drawer 닫기"
-              onPress={() => navigation.closeDrawer()}
-            />
-          </View>
-        )}>
+      <Navigator>
         <Screen
-          name="Home"
-          component={HomeScreen}
+          name="Main"
+          component={MainScreen}
           options={{
-            title: '홈',
+            headerShown: false,
           }}
         />
-        <Screen
-          name="Setting"
-          component={SettingScreen}
-          options={{title: '설정'}}
-        />
+        <Screen name="Detail" component={DetailScreen} />
       </Navigator>
     </NavigationContainer>
   );
