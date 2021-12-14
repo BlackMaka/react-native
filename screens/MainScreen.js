@@ -1,23 +1,37 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, Text, Button, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+//import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
 //const {Navigator, Screen} = createBottomTabNavigator();
-const {Navigator, Screen} = createMaterialTopTabNavigator();
+const {Navigator, Screen} = createMaterialBottomTabNavigator();
+
+function OpenDetailButton() {
+  const navigation = useNavigation();
+  return (
+    <Button
+      title="Detail 1열기"
+      onPress={() => navigation.push('Detail', {id: 1})}
+    />
+  );
+}
 function HomeScreen({navigation}) {
+  useFocusEffect(
+    useCallback(() => {
+      console.log('홈보고있졍');
+      return () => {
+        console.log('다른화면');
+      };
+    }, []),
+  );
+
   return (
     <View>
       <Text>Home</Text>
-      <Button
-        title="Detail 1열기"
-        onPress={() =>
-          navigation.push('Detail', {
-            id: 1,
-          })
-        }
-      />
+      <OpenDetailButton />
     </View>
   );
 }
@@ -45,22 +59,15 @@ function MessageScreen() {
 
 export default function MainScreen() {
   return (
-    <Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        //tabBarActiveTintColor: '#fb8c00',
-        tabBarShowLabel: true,
-        tabBarIndicatorStyle: {
-          backgroundColor: '#009688',
-        },
-        tabBarActiveTintColor: '#009688',
-      }}>
+    <Navigator initialRouteName="Home">
       <Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: '홈',
           tabBarIcon: ({color}) => <Icon name="home" color={color} size={24} />,
+          tabBarColor: 'black',
+          tabBarBadge: 'New',
         }}
       />
       <Screen
@@ -71,6 +78,7 @@ export default function MainScreen() {
           tabBarIcon: ({color}) => (
             <Icon name="search" color={color} size={24} />
           ),
+          tabBarColor: 'orange',
         }}
       />
       <Screen
@@ -81,6 +89,8 @@ export default function MainScreen() {
           tabBarIcon: ({color}) => (
             <Icon name="notifications" color={color} size={24} />
           ),
+          tabBarColor: 'pink',
+          tabBarBadge: 30,
         }}
       />
       <Screen
@@ -91,6 +101,8 @@ export default function MainScreen() {
           tabBarIcon: ({color}) => (
             <Icon name="message" color={color} size={24} />
           ),
+          tabBarColor: 'blue',
+          tabBarBadge: true,
         }}
       />
     </Navigator>
