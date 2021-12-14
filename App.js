@@ -16,13 +16,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Navigator>
-        <Screen
-          name="Main"
-          component={MainScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
+        <Screen name="Main" component={MainScreen} />
         <Screen name="Detail" component={DetailScreen} />
       </Navigator>
     </NavigationContainer>
